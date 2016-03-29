@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+		<report id="devotee_report_id" 
+			model="jkp.devotees" 
+			name="devotees.report" 
+			rml="jkp_devotees/report/jkp_report.rml"
+			string="Devotees Report"
+			auto="False">
+		</report>
+		
+		
+	</data>
+</openerp>
+
+

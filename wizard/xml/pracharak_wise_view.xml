@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<report auto="False"
+				 id="pracharakwise_report_id" 
+				 model="pracharak.wise.report" 
+				 name="pracharak.devotees"
+				 rml="jkp_devotees/wizard/pracharakwise_report.rml" 
+				 string="Pracharak Wise Report" 
+				 />
+			
+		
+		<record id="pracharak_report_form" model="ir.ui.view">
+			<field name="name">Pracharak Wise Devotees</field>
+			<field name="model">pracharak.wise.report</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Prachark">
+					<field name="all_pracharak"/>
+					<newline/>
+					<field name="from_date"/>
+					<newline/>
+					<field name="to_date"/>
+					<newline/>
+					<field name="pracharak_name" widget="selection" colspan="1"/>
+					<field name="devotee_details"/>
+					<label string="" colspan="1"/>
+					<button name="get_devotee_list" string="Get List" type="object"/>
+				</form>
+			</field>
+		</record>
+		
+		<record id="pracharak_report_action" model="ir.actions.act_window">
+			<field name="name">Pracharak Wise Devotees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pracharak.wise.report</field>
+            <field name="view_id" ref="pracharak_report_form"/>
+            <field name="target">new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>		
+		</record>
+	
+		<menuitem id="pracharak_wise_menu" name="Pracharak Wise Report" action="pracharak_report_action" parent="reporting_menu" />
+	</data>
+</openerp>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<report auto="False"
+				 id="devotees_report2_id" 
+				 model="devotees.report.list" 
+				 name="devotees.report2"
+				 rml="jkp_devotees/wizard/devotees_report2.rml" 
+				 string="Devotees Report" 
+				 />
+				 
+		<report auto="False"
+				 id="devotees_report2_head_id" 
+				 model="devotees.report.list" 
+				 name="devotees.report2.head"
+				 rml="jkp_devotees/wizard/devotees_report2_head.rml" 
+				 string="Devotees Report" 
+				 />
+				 
+		<report auto="False"
+				 id="devotees_report3_id" 
+				 model="devotees.report.list" 
+				 name="devotees.report3"
+				 rml="jkp_devotees/wizard/devotees_report3.rml" 
+				 string="Devotees Report" 
+				 />
+				 
+		<report auto="False"
+				 id="devotees_report3_head_id" 
+				 model="devotees.report.list" 
+				 name="devotees.report3.head"
+				 rml="jkp_devotees/wizard/devotees_report3_head.rml" 
+				 string="Devotees Report" 
+				 />
+			
+		
+		<record id="devotees_report2_form" model="ir.ui.view">
+			<field name="name">Devotees</field>
+			<field name="model">devotees.report.list</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Prachark">
+					<field name="header"/>
+					<newline/>
+					<field name="name_place" on_change="onchange_field1(name_place)"/>
+					<newline/>
+					<field name="name_place_no" on_change="onchange_field2(name_place_no)"/>
+					<newline/>
+					<field name="all_devotees"/>
+					<newline/>
+					<field name="from_date"/>
+					<newline/>
+					<field name="to_date"/>
+					<field name="devotee_details" invisible="1" colspan="4"/>
+					<label string="" colspan="1"/>
+					<button name="get_devotee_list" string="Get List" type="object"/>
+				</form>
+			</field>
+		</record>
+		
+		<record id="devotees_report2_action" model="ir.actions.act_window">
+			<field name="name">Devotees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">devotees.report.list</field>
+            <field name="view_id" ref="devotees_report2_form"/>
+            <field name="target">new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>		
+		</record>
+	
+	 	<menuitem id="devotee_report2_menu" name="Devotees" action="devotees_report2_action" parent="reporting_menu" /> 
+		
+	<!-- 	
+		<record id="devotees_report2_xls" model="ir.ui.view">
+			<field name="name">Devotees</field>
+			<field name="model">export.devotees</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Devotees">
+					<group col="4" colspan="4">
+						<field name="all_devotees"/>
+						<newline/>
+						<field name="name_place"/>
+						<field name="name_place_no"/>
+						<field name="from_date"/>
+						<field name="to_date"/>
+						<field name="export_data" filename="name"/>
+						<field name="name"/>
+						<label string="" colspan="3"/> 
+						<button name="get_data" type="object" string="Get Data"/>
+					</group>
+				</form>
+			</field>
+		</record>	
+		
+		<record id="devotees_report2_xls_action" model="ir.actions.act_window">
+			<field name="name">Devotees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">export.devotees</field>
+            <field name="view_id" ref="devotees_report2_xls"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>		
+		</record>	
+		
+		  <menuitem id="devotee_report2_xls_menu" name="Devotees" action="devotees_report2_xls_action" parent="reporting_menu" /> -->
+	</data>
+</openerp>

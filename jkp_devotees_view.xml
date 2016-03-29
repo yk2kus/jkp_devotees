@@ -1,0 +1,1481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	 
+	
+	<menuitem id="jkp_devotees_main_menu" name="Devotees"
+		  web_icon="images/dev1.jpg"
+          web_icon_hover="images/dev2.jpg" action="jkp_event_action" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   
+     <menuitem id="jkp_devotees_sub_menu" name="Devotees" parent="jkp_devotees_main_menu" groups="base.group_editor,base.group_operator,base.group_manager"/>
+	 <menuitem id="config_menu" name="Master List " parent="jkp_devotees_sub_menu" sequence="20"  groups="base.group_editor,base.group_operator,base.group_manager"/>
+	  <menuitem id="jkp_menu_ir_cron_act" name="Scheduler" action="base.ir_cron_act" parent="config_menu" sequence="20"/>
+	 <menuitem id="base.menu_email" name="Email" parent="jkp_devotees_sub_menu" sequence="11" groups="base.group_editor,base.group_operator,base.group_manager"/>
+	 <menuitem id="message_main_menu" name="Messaging" parent="jkp_devotees_sub_menu" sequence="12" groups="base.group_editor,base.group_operator,base.group_manager"/>
+	 <menuitem id="event_main_menu" name="JKP Events" parent="jkp_devotees_sub_menu" sequence="13" groups="base.group_editor,base.group_operator,base.group_manager"/>
+	 <menuitem id="reporting_menu" name="Reports" parent="jkp_devotees_sub_menu" sequence="14" groups="base.group_editor,base.group_operator,base.group_manager"/>
+	<!--   <menuitem id="jkp_menu_localisation" parent="config_menu" name="Localisation" sequence="15" groups="base.group_editor,base.group_operator,base.group_manager"/>  -->
+	 <menuitem id="import_export_id" name="Import/Export"  parent="jkp_devotees_sub_menu"  groups="base.group_editor,base.group_operator,base.group_manager"/>
+	
+	 <menuitem id="jkp_event_menu" name="Calendar" parent="event_main_menu" action="jkp_event_action" groups="base.group_jkp_event,base.group_editor,base.group_operator,base.group_manager"/> 
+   <menuitem id="master_event_menu" name="Events" parent="config_menu" action="jkp_event_action" sequence="3" groups="base.group_editor,base.group_operator,base.group_manager"/>
+	<record id="view_devotees_filter" model="ir.ui.view">
+            <field name="name">jkp.devotees.select</field>
+            <field name="model">jkp.devotees</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Devotees" version="7.0">
+                		
+	                		<field name="category_ids"/>
+	                	 	<field name="pan_no"/>
+	                	 	<field name="sequence"/>
+	                	 	<field name="reg_no"/>
+	                	 	<field name="first_name" />
+	                        <field name="last_name"/>
+	                        <field name="f_name"/>
+							<field name="mother_tongue"/>
+							<field name="dob"/>
+	                       
+	                        <field name="qualification_ids"/>
+	                        <field name="profession"/>
+	                        <field name="country_id" />
+	                        <field name="lang_known"/>
+	                        <field name="email"/>
+	                        <field name="mobile1" string="Mobile No"/>
+	                        <field name="gender"/>
+	                        <field name="street1"/>
+	                        <field name="family_name"/>
+	                     	<field name="pin"/>
+	                     	<field name="city_id"/>
+	                     	<field name="post_id"/>
+	                     	<field name="tahsil"/>
+	                     	<field name="dist_id"/>
+	                     	<field name="state_id"/>
+	                     	<field name="category_ids"/>
+	                     	<field name="family_permission" string="Family Approval"/>
+	                     	<field name="through"/>
+	                     	<field name="pracharak_name"/>
+	                     	<field name="jkp_year"/>
+	                     	<field name="eme_name" string="Emergency Contact Name"/>
+	                     	<field name="eme_m1_code" string="Emergency Mobile Code"/>
+	                     	<field name="remark"/>
+	                     	<field name="updated_on"/>
+                     	
+	                   
+	                    	<filter string="Country" name="country" icon="terp-personal" context="{'group_by':'country_id'}" />
+	                    	<filter string="State"  icon="terp-personal" domain="[]" context="{'group_by':'state_id'}" />
+	                    	<filter string="District" name="district" icon="terp-personal" context="{'group_by':'dist_id'}" />
+	                    	
+	                    	<filter string="Associated Since" name="since" icon="terp-personal" domain="[]" context="{'group_by':'jkp_year'}" />
+	                    	<filter string=" Associated Through" name="gender" icon="terp-personal" domain="[]" context="{'group_by':'through'}"/>
+	                    	<filter string="Pracharak Name" name="pracharak" icon="terp-personal" domain="[]" context="{'group_by':'pracharak_name'}" />
+	            
+	                	<group expand="0" string="Group By...">
+	                		<filter string="Mother Tongue" icon="terp-personal" domain="[]" context="{'group_by':'mother_tongue'}"/>
+	            	       	<filter string="Father's Name" name="Father's Name" icon="terp-personal" context="{'group_by':'f_name'}"/>
+	            	       	
+	                    	<filter string="Profession" icon="terp-personal" domain="[]" context="{'group_by':'profession'}"/>
+	                   		<filter string="Gender" name="Gender" icon="terp-personal" domain="[]" context="{'group_by':'gender'}"/>
+	                   		<filter string="DoB" name="Date of Birth" icon="terp-personal" domain="[]" context="{'group_by':'dob'}"/>
+	                   		<filter string="Registration No" name="Registration No" icon="terp-personal" domain="[]" context="{'group_by':'reg_no'}"/>
+	                   		
+	                    	<filter string="SMS" name="sms" icon="terp-personal" context="{'group_by':'sms'}"/>
+	                    	<filter string="Email" name="mail" icon="terp-personal" context="{'group_by':'mail'}"/>
+	                    	<filter string="Letter" name="letter" icon="terp-personal" context="{'group_by':'letter'}"/>
+	                    </group>
+	                	
+                </search>
+            </field>
+           </record>
+		 
+	
+	
+	
+	 <record id="jkp_devotees_tree" model="ir.ui.view">
+            <field name="name">jkp.devotees</field>
+            <field name="model">jkp.devotees</field>
+            <field name="type">tree</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Devotee's Personal Details">
+                    <field name="sequence"/>
+                    <field name="reg_no"/>
+                    <field name="name" invisible="1"/>
+                	<field name="first_name"  />	
+                	<field name="last_name" />
+					<field name="f_name"/>
+					<field name="dob"/>
+					<field name="profession"/>
+					<field name="qualification_ids" invisible="1"/>
+					<field name="marital"/>
+					<field name="mobile1" string="Mobile No"/>
+					<field name="gender" invisible="1"/>
+					<field name="mother_tongue" />
+                    <field name="sms" invisible="1"/>
+					<field name="letter" invisible="1"/>
+					<field name="mail" invisible="1"/>
+					<field name="through" />
+					<field name="pracharak_name"/>
+					<field name="jkp_year"/>
+					<field name="country_id"/>
+					<field name="state_id"/>
+					<field name="dist_id"/>
+					<field name="tahsil"/>
+					<field name="city_id"/>
+					<field name="post_id"/>
+					<field name="pin"/>
+                    <field name="email"/>
+                    <field name="accommodation"/>
+                    <field name="mangarh"/>
+                    <field name="vrindavan"/>
+                    <field name="barsana"/>
+                    <field name="other"/>
+                </tree>
+            </field>
+        </record>
+        
+         <record id="jkp_devotees_tree2" model="ir.ui.view">
+            <field name="name">jkp.devotees</field>
+            <field name="model">jkp.devotees</field>
+            <field name="type">tree</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Deleted Devotees" create="false">
+                    <field name="sequence"/>
+                    <field name="reg_no"/>
+                    <field name="name" invisible="1"/>
+                	<field name="first_name"  />	
+                	<field name="last_name" />
+					<field name="f_name"/>
+					<field name="dob"/>
+					<field name="profession"/>
+					<field name="qualification_ids" invisible="1"/>
+					<field name="marital"/>
+					<field name="mobile1" string="Mobile No"/>
+					<field name="gender" invisible="1"/>
+					<field name="mother_tongue" />
+                    <field name="sms" invisible="1"/>
+					<field name="letter" invisible="1"/>
+					<field name="mail" invisible="1"/>
+					<field name="through" />
+					<field name="pracharak_name"/>
+					<field name="jkp_year"/>
+					<field name="country_id"/>
+					<field name="state_id"/>
+					<field name="dist_id"/>
+					<field name="tahsil"/>
+					<field name="city_id"/>
+					<field name="post_id"/>
+					<field name="pin"/>
+                    <field name="email"/>
+                    <field name="accommodation"/>
+                    <field name="mangarh"/>
+                    <field name="vrindavan"/>
+                    <field name="barsana"/>
+                    <field name="other"/>
+                </tree>
+            </field>
+        </record>
+	
+	
+	
+	<record id="jkp_devotees_form" model="ir.ui.view">
+			<field name="name">jkp.devotees</field>
+            <field name="model">jkp.devotees</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Devotee's Personal Details Form" version="7.0">
+                	<notebook>
+                	<page string="Devotees">
+                	<group colspan="4" col="8">
+                		<group colspan="4" col="7">
+	                		<field name="category_ids" colspan="7"  widget="many2many_tags"/>
+	                		<field name="updated_on"/>
+	                		
+	                		<field name="dormant" colspan="1"/>
+	                		<button name="%(duplicate_dev_action)d" states="Draft" string="Check Duplicate" type="action" icon="terp-document-new" colspan="2" groups="base.group_duplicacy"/>
+	                		
+	                		<button name="restore_devotee"  states="Confirmed" string="Restore" type="object" icon="gtk-convert" colspan="2"/>
+	                		
+	                		<newline/>
+	                		
+	                		<field name="state" colspan="1" invisible="1"/>
+                		</group>
+                		<group colspan="1" col="1">
+                			
+                			<field name="image" widget="image" nolabel="1" height="100" width="100"/>
+                		
+                		</group>
+                	</group>
+                	<group colspan="4" col="6">
+                		
+	                	<field name="today_date"/>
+	                	<field name="sequence"/>
+	                	<field name="pan_no" on_change="onchange_pan(pan_no)"/>
+	                	<field name="reg_no"/>
+	                	<field name="first_name" on_change="onchange_values(first_name,last_name,f_name,dob)" />	
+	                	<field name="last_name"  on_change="onchange_values(first_name,last_name,f_name,dob)"/>
+	                	<field name="f_name" on_change="onchange_values(first_name,last_name,f_name,dob)"/>
+	                	<field name="gender"/>
+	                	<field name="dob" on_change="onchange_dob(first_name,last_name,f_name,dob)"/>	                	
+                		<field name="mother_tongue" />
+						
+						
+						
+						<field name="profession" />
+						<field name="prof_detail" attrs="{'invisible':['|','|',('profession','=','house'),('profession','=','student'),('profession','=','home')]}"/>
+						<newline/>			
+						<field name="qualification_ids" colspan="4"  widget="many2many_tags"/>			
+						<field name="marital"/>						
+						<field name="name" invisible="1"/>
+	                	<field name="user_id" invisible="1"/>
+						
+					</group>
+						<separator string="Correspondence preferred through" colspan="4"/>
+						
+						<group col="10" colspan="4">
+							<field name="letter" colspan="1"/>
+							<label string='' colspan="1"/>
+							<field name="sms" colspan="1"/>
+							<label string='' colspan="1"/>
+							<field name="mail" colspan="1"/>
+										
+						</group>
+					
+					
+					<group col="8" colspan="4">
+						<group col="4" colspan="4">
+							<separator string="Permanent Address" colspan="4"/>
+							<field name="street1" colspan="4" attrs="{'required':[('letter','!=',False)] }"/>
+							<field name="city_id"  colspan="4" />	
+							<group col="4" colspan="4" >
+								<field name="country_id" widget="selection" attrs="{'required':[('letter','!=',False)] }" on_change="onchange_country(country_id)" colspan="2"/>
+								<field name="state_id" on_change="onchange_state(state_id)" domain="[( 'country_id','=',country_id )]" context="{'country_id':country_id}" colspan="2" />
+								<field name="dist_id" on_change="onchange_dist(dist_id)" domain="[( 'state_id','=',state_id )]" context="{'state_id':state_id}" colspan="1" />
+								<field name="tahsil"  domain="[( 'dist_id','=',dist_id )]" context="{'dist_id':dist_id}" colspan="1" />
+								<field name="post_id" domain="[( 'distt_id','=',dist_id )]" context="{'distt_id':dist_id}" colspan="1" on_change="onchange_post(post_id)" />
+								<field name="pin" on_change="onchange_pin(country_id,pin)" colspan="1"/>
+							</group>
+						</group>
+						<group col="4" colspan="4">
+								<separator string="Contact Details" colspan="4"/>
+								<group col="6" colspan="4">
+										<field name="land_code" colspan="1" on_change="onchange_integer(land_code)" placeholder="Ctry Code "/>
+										<field name="land_std" colspan="1" on_change="onchange_integer(land_std)" placeholder="STD Code" nolabel="1"/>
+										<field name="landline" colspan="2" on_change="onchange_landline(landline)" placeholder="Number separated by '/'" nolabel="1" />
+								</group>
+								<group col="6" colspan="4">
+									<field name="m1_code" colspan="2" on_change="onchange_integer(m1_code)" placeholder="Ctry Code"/>
+									<field name="mobile1" colspan="4" nolabel="1" attrs="{'required':[('sms','!=',False)] }" on_change="onchange_mobile_no(m1_code,mobile1)"/>
+									<field name="m2_code" colspan="2" on_change="onchange_integer(m2_code)" placeholder="Ctry Code"/>
+									<field name="mobile2" colspan="4" nolabel="1"  on_change="onchange_mobile_no(m2_code,mobile2)"/>
+									
+									<field name="email" widget="email" attrs="{'required':[('mail','!=',False)] }" on_change="onchange_email(email)" colspan="6"/>
+								<field name="email2" widget="email" on_change="onchange_email(email2)" colspan="6"/>
+								</group>
+						</group>
+					</group>
+					<separator string="Emergency Contact" colspan="4"/>
+					<group colspan="4" col="6">
+						<field name="eme_name" colspan="3"/>
+						
+						<field name="eme_rel_id" colspan="3"/>
+						<field name="eme_rel" colspan="3"/>
+					</group>		
+					<group col="8" colspan="4">
+						<group col="4" colspan="4">
+							
+							<separator string="Emergency  Address" colspan="4"/>
+							
+							
+							<group col="4" colspan="4" >
+								<field name="eme_street1" widget="text" colspan="4"/>
+								<field name="eme_country_id" widget="selection" on_change="onchange_eme_country(eme_country_id)" colspan="2"/>
+								<field name="eme_state_id" on_change="onchange_emeState(eme_state_id)" domain="[('country_id','=',eme_country_id)]" context="{'country_id':eme_country_id}" colspan="2"/>
+								<field name="eme_dist_id" on_change="onchange_emeDist(eme_dist_id)" domain="[('state_id','=',eme_state_id)]" context="{'state_id':eme_state_id}" colspan="1"/>
+								<field name="eme_tahsil" colspan="1" domain="[('dist_id','=',eme_dist_id)]" context="{'dist_id':eme_dist_id}"/>
+								<field name="eme_post_id" domain="[( 'distt_id','=',eme_dist_id )]" context="{'distt_id':eme_dist_id}" colspan="1" on_change="onchange_emepost(eme_post_id)"/>
+								<field name="eme_pin" on_change="onchange_pin(eme_country_id,eme_pin)" colspan="1"/>
+							</group>
+						</group>
+						<group col="4" colspan="4">
+								<separator string="Emergency Contact Details" colspan="4"/>
+								
+								<group col="6" colspan="4">
+									<field name="eme_land_code"  on_change="onchange_integer(eme_land_code)" placeholder="Ctry Code" colspan="1" />
+									<field name="eme_land_std"  on_change="onchange_integer(eme_land_std)" colspan="1" placeholder="STD Code" nolabel="1"/>								
+									<field name="eme_landline"  on_change="onchange_landline(eme_landline)" colspan="2" placeholder="Numbers separated by '/'" nolabel="1" />
+								</group>
+								<group col="6" colspan="4">
+									<field name="eme_m1_code" colspan="2" on_change="onchange_integer(eme_m1_code)" placeholder="Ctry Code"/>
+									<field name="eme_mobile1" colspan="4" nolabel="1" on_change="onchange_mobile_no(eme_m1_code,eme_mobile1)"/>
+									<field name="eme_m2_code" colspan="2" on_change="onchange_integer(eme_m2_code)" placeholder="Ctry Code"/>
+									<field name="eme_mobile2" colspan="4" nolabel="1" on_change="onchange_mobile_no(eme_m2_code,eme_mobile2)" />
+									<field name="eme_email" widget="email" on_change="onchange_email(eme_email)" colspan="6"/>
+									
+								</group>
+						</group>
+					</group>
+					<separator string="Association with JKP" colspan="4"/>
+					<group colspan="4" col="8">
+						
+						
+						<field name="jkp_year" widget="selection" colspan="2"/>
+						<field name="through" colspan="2"/>
+						<field name="through_name" colspan="4" attrs="{'invisible':['|',('through','=',False),('through','=','Pracharak')]}"/>
+						<field name="pracharak_name" colspan="4" attrs="{'invisible':[('through','!=','Pracharak')]}"/>
+						
+					</group>
+					
+					<separator string="Proficiency in other Languages" colspan="4"/>
+					<group colspan="4" col="8">
+						<field name="lang_known" colspan="6" domain="[('id','!=',mother_tongue)]" string="Languages Known"  widget="many2many_tags"/>
+					</group>
+                    <separator string="Family Approval" colspan="4"/>
+                    <group>
+                    	<field name="family_permission" colspan="2"/>
+                    </group>
+                    <separator string="Other family members associated with JKP" colspan="4"/>
+                    <field name="devotee_family"  nolabel="1" colspan="4">
+					
+						<tree editable="bottom">
+	<!--  						<field name="devotee_name" widget="selection" on_change="onchange_devotee(devotee_name)"/>
+			-->
+							<field name="default_name" on_change="onchange_name(default_name)"/>
+							
+							<field name="actual_age"/>
+							<field name="age2" on_change="onchange_age(age2)"/>
+							<field name="relation" on_change="onchange_rel(relation)"/>
+							<field name="family_relation"/>
+							<field name="dev_profession" />
+								
+						</tree>
+					</field>
+					
+				<group col="8" colspan="4">
+					<newline/>
+					<separator string="Accommodation Details" colspan="8"/>
+					<field name="accommodation" colspan="2"/>
+					<newline/>
+					<field name="mangarh" attrs="{'invisible':[('accommodation','=','No')]}" />
+					<field name="barsana" attrs="{'invisible':[('accommodation','=','No')]}" />
+					<newline/>
+					<field name="vrindavan" attrs="{'invisible':[('accommodation','=','No')]}" />
+					<field name="other" attrs="{'invisible':[('accommodation','=','No')]}" />
+				
+				</group>
+					
+				<separator string="Remarks" colspan="4"/>
+				<field name="remark" nolabel="1" colspan="4"/>
+				
+				
+				</page>
+				<page string="Email Logs">
+					<field name="mail_log_ids" nolabel="1" colspan="4">
+						<tree editable="Top">
+							<field name="user_id"/>
+							<field name="date"/>
+							<field name="email_from"/>
+							<field name="email_to"/>
+							<field name="subject"/>
+							<field name="state"/>
+						</tree>
+					</field>
+				</page>
+				<page string="SMS Logs">
+					<field name="log_ids" nolabel="1" colspan="4">
+						<tree editable="Top">
+							<field name="user_id"/>
+							<field name="log_date"/>
+							<field name="creation_date"/>
+							<field name="mobile_no"/>
+							<field name="status"/>
+							<field name="content"/>
+						</tree>
+					</field>
+				</page>
+				
+				<page string="Attachments">
+					<field name="jkp_attachment_ids" nolabel="1" widget="one2many_list">
+						<tree>
+							<field name="name"/>
+							<field name="attachment"/>
+							
+						</tree>
+						<form>						
+							<field name="name" colspan="4"/>
+							<field name="attachment" filename="name"/>
+							<field name="preview_attachment" widget="image" height="100" width="100" nolabel="1"/>
+						</form>
+					</field>
+				</page>
+				
+				<page string="Notes">
+				
+					<separator string="Add Notes" colspan="4"/>
+					<field name="notes" nolabel="1" height="80px" colspan="4"/>
+					
+				</page>	
+				
+				</notebook>
+				</form>
+			</field>
+	</record>	
+	
+	<record id="jkp_devotees_form2" model="ir.ui.view">
+			<field name="name">jkp.devotees</field>
+            <field name="model">jkp.devotees</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Devotee's Personal Details Form" create="false" version="7.0">
+                	<notebook>
+                	<page string="Devotees">
+                	<group colspan="4" col="8">
+                		<group colspan="4" col="7">
+	                		<field name="category_ids" colspan="7"  widget="many2many_tags"/>
+	                		<field name="updated_on"/>
+	                		
+	                		<field name="dormant" colspan="1"/>
+	                		<button name="%(duplicate_dev_action)d" states="Draft" string="Check Duplicate" groups="base.group_duplicacy" type="action" icon="terp-document-new" colspan="2"/>
+	                		
+	                		<button name="restore_devotee"  states="Confirmed" string="Restore" type="object" icon="gtk-convert" colspan="2"/>
+	                		
+	                		<newline/>
+	                		
+	                		<field name="state" colspan="1" invisible="1"/>
+                		</group>
+                		<group colspan="1" col="1">
+                			
+                			<field name="image" widget="image" nolabel="1" height="100" width="100"/>
+                		
+                		</group>
+                	</group>
+                	<group colspan="4" col="6">
+                		
+	                	<field name="today_date"/>
+	                	<field name="sequence"/>
+	                	<field name="pan_no" on_change="onchange_pan(pan_no)"/>
+	                	<field name="reg_no"/>
+	                	<field name="first_name" on_change="onchange_values(first_name,last_name, f_name, dob)" />	
+	                	<field name="last_name"  on_change="onchange_values(first_name,last_name, f_name, dob)"/>
+	                	<field name="f_name" on_change="onchange_values(first_name,last_name, f_name, dob)"/>
+	                	<field name="gender"/>
+	                	<field name="dob" on_change="onchange_dob(first_name,last_name,f_name,dob)"/>	                	
+                		<field name="mother_tongue" />
+						
+						
+						
+						<field name="profession" />
+						<field name="prof_detail" attrs="{'invisible':['|','|',('profession','=','house'),('profession','=','student'),('profession','=','home')]}"/>
+						<newline/>
+						<field name="qualification_ids" colspan="4"  widget="many2many_tags"/>
+						<field name="marital"/>
+						<field name="name" invisible="1"/>
+	                	<field name="user_id" invisible="1"/>
+						
+					</group>
+						<separator string="Correspondence preferred through" colspan="4"/>
+						
+						<group col="8" colspan="4">
+							
+							
+							<field name="letter" colspan="1"/>
+							<label string='' colspan="2"/>
+							<field name="sms" colspan="1"/>
+							<label string='' colspan="2"/>
+							<field name="mail" colspan="1"/>
+										
+							
+						</group>
+					
+					
+					<group col="8" colspan="4">
+						<group col="4" colspan="4">
+							<separator string="Permanent Address" colspan="4"/>
+							<field name="street1" colspan="4" attrs="{'required':[('letter','!=',False)] }"/>
+							<field name="city_id"  colspan="4" />	
+							<group col="4" colspan="4" >
+								<field name="country_id" widget="selection" attrs="{'required':[('letter','!=',False)] }" on_change="onchange_country(country_id)" colspan="2"/>
+								<field name="state_id" on_change="onchange_state(state_id)" domain="[( 'country_id','=',country_id )]" context="{'country_id':country_id}" colspan="2" />
+								<field name="dist_id" on_change="onchange_dist(dist_id)" domain="[( 'state_id','=',state_id )]" context="{'state_id':state_id}" colspan="1" />
+								<field name="tahsil"  domain="[( 'dist_id','=',dist_id )]" context="{'dist_id':dist_id}" colspan="1" />
+								<field name="post_id" domain="[( 'distt_id','=',dist_id )]" context="{'distt_id':dist_id}" colspan="1" on_change="onchange_post(post_id)" />
+								<field name="pin" on_change="onchange_pin(country_id,pin)" colspan="1"/>
+							</group>
+						</group>
+						<group col="4" colspan="4">
+								<separator string="Contact Details" colspan="4"/>
+								<group col="6" colspan="4">
+										<field name="land_code" colspan="1" on_change="onchange_integer(land_code)" placeholder="Ctry Code "/>
+										<field name="land_std" colspan="1" on_change="onchange_integer(land_std)" placeholder="STD Code" nolabel="1"/>
+										<field name="landline" colspan="2" on_change="onchange_landline(landline)" placeholder="Numbers separated by '/'" nolabel="1" />
+								</group>
+								<group col="6" colspan="4">
+									<field name="m1_code" colspan="2" on_change="onchange_integer(m1_code)" placeholder="Ctry Code"/>
+									<field name="mobile1" colspan="4" nolabel="1" attrs="{'required':[('sms','!=',False)] }" on_change="onchange_mobile_no(m1_code,mobile1)"/>
+									<field name="m2_code" colspan="2" on_change="onchange_integer(m2_code)" placeholder="Ctry Code"/>
+									<field name="mobile2" colspan="4" nolabel="1"  on_change="onchange_mobile_no(m2_code,mobile2)"/>
+									
+									<field name="email" widget="email" attrs="{'required':[('mail','!=',False)] }" on_change="onchange_email(email)" colspan="6"/>
+								<field name="email2" widget="email" on_change="onchange_email(email2)" colspan="6"/>
+								</group>
+						</group>
+					</group>
+					<separator string="Emergency Contact" colspan="4"/>
+					<group colspan="4" col="6">
+						<field name="eme_name" colspan="3"/>
+						
+						<field name="eme_rel_id" colspan="3"/>
+						<field name="eme_rel" colspan="3"/>
+					</group>		
+					<group col="8" colspan="4">
+						<group col="4" colspan="4">
+							
+							<separator string="Emergency  Address" colspan="4"/>
+							
+							
+							<group col="4" colspan="4" >
+								<field name="eme_street1" widget="text" colspan="4"/>
+								<field name="eme_country_id" widget="selection" on_change="onchange_eme_country(eme_country_id)" colspan="2"/>
+								<field name="eme_state_id" on_change="onchange_emeState(eme_state_id)" domain="[('country_id','=',eme_country_id)]" context="{'country_id':eme_country_id}" colspan="2"/>
+								<field name="eme_dist_id" on_change="onchange_emeDist(eme_dist_id)" domain="[('state_id','=',eme_state_id)]" context="{'state_id':eme_state_id}" colspan="1"/>
+								<field name="eme_tahsil" colspan="1" domain="[('dist_id','=',eme_dist_id)]" context="{'dist_id':eme_dist_id}"/>
+								<field name="eme_post_id" domain="[( 'distt_id','=',eme_dist_id )]" context="{'distt_id':eme_dist_id}" colspan="1" on_change="onchange_emepost(eme_post_id)"/>
+								<field name="eme_pin" on_change="onchange_pin(eme_country_id,eme_pin)" colspan="1"/>
+							</group>
+						</group>
+						<group col="4" colspan="4">
+								<separator string="Emergency Contact Details" colspan="4"/>
+								
+								<group col="6" colspan="4">
+									<field name="eme_land_code"  on_change="onchange_integer(eme_land_code)" placeholder="Ctry Code" colspan="1" />
+									<field name="eme_land_std"  on_change="onchange_integer(eme_land_std)" colspan="1" placeholder="STD Code" nolabel="1"/>								
+									<field name="eme_landline"  on_change="onchange_landline(eme_landline)" colspan="2" placeholder="Numbers separated by '/'" nolabel="1" />
+								</group>
+								<group col="6" colspan="4">
+									<field name="eme_m1_code" colspan="2" on_change="onchange_integer(eme_m1_code)" placeholder="Ctry Code"/>
+									<field name="eme_mobile1" colspan="4" nolabel="1" on_change="onchange_mobile_no(eme_m1_code,eme_mobile1)"/>
+									<field name="eme_m2_code" colspan="2" on_change="onchange_integer(eme_m2_code)" placeholder="Ctry Code"/>
+									<field name="eme_mobile2" colspan="4" nolabel="1" on_change="onchange_mobile_no(eme_m2_code,eme_mobile2)" />
+									<field name="eme_email" widget="email" on_change="onchange_email(eme_email)" colspan="6"/>
+									
+								</group>
+						</group>
+					</group>
+					<separator string="Association with JKP" colspan="4"/>
+					<group colspan="4" col="8">
+						
+						
+						<field name="jkp_year" widget="selection" colspan="2"/>
+						<field name="through" colspan="2"/>
+						<field name="through_name" colspan="4" attrs="{'invisible':['|',('through','=',False),('through','=','Pracharak')]}"/>
+						<field name="pracharak_name" colspan="4" attrs="{'invisible':[('through','!=','Pracharak')]}"/>
+						
+					</group>
+					
+					<separator string="Proficiency in other Languages" colspan="4"/>
+					<group colspan="4" col="8">
+						<field name="lang_known" colspan="6" domain="[('id','!=',mother_tongue)]" string="Language Known"  widget="many2many_tags"/>
+					</group>
+                    <separator string="Family Approval" colspan="4"/>
+                    <group>
+                    	<field name="family_permission" colspan="2"/>
+                    </group>
+                    <separator string="Other family members associated with JKP" colspan="4"/>
+                    <field name="devotee_family"  nolabel="1" colspan="4">
+					
+						<tree editable="bottom">
+	<!--  						<field name="devotee_name" widget="selection" on_change="onchange_devotee(devotee_name)"/>
+			-->
+							<field name="default_name" on_change="onchange_name(default_name)"/>
+							
+							<field name="actual_age"/>
+							<field name="age2" on_change="onchange_age(age2)"/>
+							<field name="relation" on_change="onchange_rel(relation)"/>
+							<field name="family_relation"/>
+							<field name="dev_profession" />
+								
+						</tree>
+					</field>
+					
+				<group col="8" colspan="4">
+					<newline/>
+					<separator string="Accommodation Details" colspan="8"/>
+					<field name="accommodation" colspan="2"/>
+					<newline/>
+					<field name="mangarh" attrs="{'invisible':[('accommodation','=','No')]}" />
+					<field name="barsana" attrs="{'invisible':[('accommodation','=','No')]}" />
+					<newline/>
+					<field name="vrindavan" attrs="{'invisible':[('accommodation','=','No')]}" />
+					<field name="other" attrs="{'invisible':[('accommodation','=','No')]}" />
+				
+				</group>
+					
+				<separator string="Remarks" colspan="4"/>
+				<field name="remark" nolabel="1" colspan="4"/>
+				
+				
+				</page>
+				<page string="Email Logs">
+					<field name="mail_log_ids" nolabel="1" colspan="4">
+						<tree editable="Top">
+							<field name="user_id"/>
+							<field name="date"/>
+							<field name="email_from"/>
+							<field name="email_to"/>
+							<field name="subject"/>
+							<field name="state"/>
+						</tree>
+					</field>
+				</page>
+				<page string="SMS Logs">
+					<field name="log_ids" nolabel="1" colspan="4">
+						<tree editable="Top">
+							<field name="user_id"/>
+							<field name="log_date"/>
+							<field name="creation_date"/>
+							<field name="mobile_no"/>
+							<field name="status"/>
+							<field name="content"/>
+						</tree>
+					</field>
+				</page>
+				
+				<page string="Attachments">
+					<field name="jkp_attachment_ids" nolabel="1" widget="one2many_list">
+						<tree>
+							<field name="name"/>
+							<field name="attachment"/>
+						</tree>
+						<form>
+							<field name="name" colspan="4"/>
+							<field name="attachment" filename="name"/>
+						</form>
+					</field>
+				</page>
+				
+				<page string="Notes">
+				
+					<separator string="Add Notes" colspan="4"/>
+					<field name="notes" nolabel="1" height="80px" colspan="4"/>
+					
+				</page>	
+				
+				</notebook>
+				</form>
+			</field>
+	</record>	
+	
+	
+	
+	
+	<record id="action_devotees_form" model="ir.actions.act_window">
+            <field name="name">Devotees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.devotees</field>
+             <field name="domain">[('state','=','Draft'),('dormant','!=',True)]</field>
+            <field name="context">{'search_default_state': 'Draft','search_default_dormant':False}</field>
+            <field name="view_id" ref="jkp_devotees_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_devotees_filter"/>
+   </record>
+   
+   
+   <record id="action_devotees_tree_ref" model="ir.actions.act_window.view">
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="jkp_devotees_tree"/>
+            <field name="act_window_id" ref="action_devotees_form"/>
+   </record>
+    
+	<record id="action_devotees_form_ref" model="ir.actions.act_window.view">
+	        <field eval="20" name="sequence"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="jkp_devotees_form"/>
+	        <field name="act_window_id" ref="action_devotees_form"/>
+     </record>
+   
+   <record id="action_devotees_dormant" model="ir.actions.act_window">
+            <field name="name">Dormant Devotees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.devotees</field>
+             <field name="domain">[('state','=','Draft'),('dormant','!=',False')]</field>
+            <field name="context">{'search_default_state': 'Draft','search_default_dormant':True}</field>
+            <field name="view_id" ref="jkp_devotees_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_devotees_filter"/>
+   </record>
+   
+    <menuitem id="jkp_form_menu" name="Devotee's Personal Details" parent="jkp_devotees_sub_menu" action="action_devotees_form" sequence="1"  groups="base.group_editor,base.group_operator,base.group_manager"/>
+    
+    <menuitem id="jkp_dormant_menu" name="Dormant Devotees" parent="jkp_devotees_sub_menu" action="action_devotees_dormant" sequence="4" groups="base.group_editor,base.group_operator,base.group_manager"/>
+    
+    <record id="action_devotees_delete" model="ir.actions.act_window">
+            <field name="name">Deleted Devotees </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.devotees</field>
+            <field name="domain">[('state','=','Confirmed')]</field>
+            <field name="context">{'search_default_state': 'Confirmed','default_state':'Confirmed'}</field>
+            <field name="view_id" ref="jkp_devotees_tree2"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_devotees_filter"/>
+   </record>
+   
+    	<record id="action_devotees_delete_tree" model="ir.actions.act_window.view">
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="jkp_devotees_tree2"/>
+            <field name="act_window_id" ref="action_devotees_delete"/>
+        </record>
+    
+    	<record id="action_devotees_delete_form" model="ir.actions.act_window.view">
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="jkp_devotees_form2"/>
+            <field name="act_window_id" ref="action_devotees_delete"/>
+        </record>
+   
+   <menuitem id="deleted_main_menu" name="Devotees" parent="base.menu_reporting" sequence="50" groups="base.group_system,base.group_editor,base.group_operator,base.group_manager"/>
+   <menuitem id="jkp_deleted_menu" name="Deleted Devotees" parent="deleted_main_menu" action="action_devotees_delete" sequence="14" groups="base.group_editor,base.group_operator,base.group_manager"/>
+     
+     
+     
+     
+     <!-- ==============================  CATAGORIES ============================= -->
+   
+      
+   <record id="jkp_categories_search" model="ir.ui.view">
+			<field name="name">Categories</field>
+            <field name="model">jkp.category</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Categories">
+                	<field name="name"/>
+                	
+                </search>
+            </field>
+    </record>
+    
+     <record id="jkp_categories_form" model="ir.ui.view">
+			<field name="name">Categories</field>
+            <field name="model">jkp.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Categories">
+                	<field name="name"/>
+                	
+                </form>
+            </field>
+    </record>
+    
+    <record id="jkp_categories_tree" model="ir.ui.view">
+			<field name="name">Categories</field>
+            <field name="model">jkp.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Categories">
+                	<field name="name"/>
+                	
+                </tree>
+            </field>
+    </record>
+    
+    <record id="jkp_categories_action" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.category</field>
+            <field name="view_id" ref="jkp_categories_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="jkp_categories_search"/>
+   </record>	
+   
+   <menuitem action="jkp_categories_action" id="jkp_category_menu" parent="config_menu" string="Categories" sequence="0" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   
+     
+     
+     <!--=====================  Years ====================-->
+     
+      <record id="year_filter" model="ir.ui.view">
+            <field name="name">year.jkp.select</field>
+            <field name="model">year.jkp</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Years">
+                	 	<field name="name"/>
+	            </search>
+            </field>
+   </record>
+     <record id="jkp_year_form" model="ir.ui.view">
+     	<field name="name">Year</field>
+     	<field name="model">year.jkp</field>
+     	<field name="type">form</field>
+     	<field name="arch" type="xml">
+                <form string="Years">
+                	<field name="name"/>
+                </form>
+            </field>
+     </record>
+       <record id="jkp_year_tree" model="ir.ui.view">
+     	<field name="name">Year</field>
+     	<field name="model">year.jkp</field>
+     	<field name="type">tree</field>
+     	<field name="arch" type="xml">
+                <tree string="Years">
+                	<field name="name"/>
+                </tree>
+            </field>
+     </record>
+     
+     <record id="jkp_year_action" model="ir.actions.act_window">
+            <field name="name">Years</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">year.jkp</field>
+            <field name="view_id" ref="jkp_year_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="year_filter"/>
+   </record>
+   <menuitem id="year_menu" name="Years" parent="config_menu" sequence="50" action="jkp_year_action" groups="base.group_editor,base.group_operator,base.group_manager"/> 
+   
+   
+   
+   
+   
+   <!--=====================  Pracharak ====================-->
+     
+      <record id="pracharak_filter" model="ir.ui.view">
+            <field name="name">jkp.pracharak.select</field>
+            <field name="model">jkp.pracharak</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Pracharak">
+                	 	<field name="name"/>
+	            </search>
+            </field>
+   </record>
+     <record id="jkp_pracharak_form" model="ir.ui.view">
+     	<field name="name">jkp.pracharak</field>
+     	<field name="model">jkp.pracharak</field>
+     	<field name="type">form</field>
+     	<field name="arch" type="xml">
+                <form string="Pracharak">
+                	<field name="name"/>
+                </form>
+            </field>
+     </record>
+       <record id="jkp_pracaharak_tree" model="ir.ui.view">
+     	<field name="name">jkp.pracharak</field>
+     	<field name="model">jkp.pracharak</field>
+     	<field name="type">tree</field>
+     	<field name="arch" type="xml">
+                <tree string="Pracharak">
+                	<field name="name"/>
+                </tree>
+            </field>
+     </record>
+     
+     <record id="jkp_pracharak_action" model="ir.actions.act_window">
+            <field name="name">Pracharak </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.pracharak</field>
+            <field name="view_id" ref="jkp_pracaharak_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="pracharak_filter"/>
+   </record>
+   <menuitem id="pracharak_menu" name="Pracharak" parent="config_menu" sequence="10" action="jkp_pracharak_action"  groups="base.group_editor,base.group_operator,base.group_manager"/> 
+     
+     
+      <!--=====================  Relation ====================-->
+    
+     <record id="rel_filter" model="ir.ui.view">
+            <field name="name">Relation</field>
+            <field name="model">jkp.relation</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Relation">
+                	 	<field name="name"/>
+	            </search>
+            </field>
+   </record>
+    
+    
+    
+    <record id="rel_form" model="ir.ui.view">
+			<field name="name">Relation</field>
+            <field name="model">jkp.relation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Relation">
+                	<field name="name"/>
+                </form>
+            </field>
+    </record>
+    
+    <record id="rel_tree" model="ir.ui.view">
+			<field name="name">lang.known</field>
+            <field name="model">jkp.relation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Relation">
+                	<field name="name"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="rel_action" model="ir.actions.act_window">
+            <field name="name">Relation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.relation</field>
+            <field name="view_id" ref="rel_tree"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="rel_filter"/>
+   </record>
+   <menuitem id="rel_menu" name="Relation" parent="config_menu" action="rel_action" sequence="19" groups="base.group_editor,base.group_operator,base.group_manager"/> 
+   
+   
+   <!-- ============================ Post Office =============== -->
+     
+     
+    <!--=====================  Languages ====================-->
+    
+     <record id="lang_filter" model="ir.ui.view">
+            <field name="name">lang.known.select</field>
+            <field name="model">lang.known</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Language">
+                	 	<field name="name"/>
+	            </search>
+            </field>
+   </record>
+    
+    
+    
+    <record id="lang_known_form" model="ir.ui.view">
+			<field name="name">lang.known</field>
+            <field name="model">lang.known</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Languages">
+                	<field name="name"/>
+                </form>
+            </field>
+    </record>
+    
+    <record id="lang_known_tree" model="ir.ui.view">
+			<field name="name">lang.known</field>
+            <field name="model">lang.known</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Languages">
+                	<field name="name"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="lang_known_action" model="ir.actions.act_window">
+            <field name="name">Languages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lang.known</field>
+            <field name="view_id" ref="lang_known_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="lang_filter"/>
+   </record>
+   <menuitem id="lang_menu" name="Languages" parent="config_menu" sequence="5" action="lang_known_action" groups="base.group_editor,base.group_operator,base.group_manager"/> 
+   
+   
+   <!-- ============================ Post Office =============== -->
+   
+   
+   <record id="post_office_filter" model="ir.ui.view">
+            <field name="name">post.office.select</field>
+            <field name="model">post.office</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Post Office">
+                	 	<field name="name"/>
+	                	<field name="code"/>
+	                	<field name="distt_id"/>
+                </search>
+            </field>
+   </record>
+   
+   
+   
+   
+   
+   <record id="post_office_form" model="ir.ui.view">
+			<field name="name">post.office</field>
+            <field name="model">post.office</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Post Office">
+                	<field name="name"/>
+                	<field name="code"/>
+                	<field name="distt_id"/>
+                </form>
+            </field>
+    </record>
+    <record id="post_office_tree" model="ir.ui.view">
+			<field name="name">post.office</field>
+            <field name="model">post.office</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Post Office">
+                	<field name="name"/>
+                	<field name="code"/>
+                	<field name="distt_id"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="post_office_action" model="ir.actions.act_window">
+            <field name="name">Post Office</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">post.office</field>
+            <field name="view_id" ref="post_office_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="post_office_filter"/>
+   </record>
+   <menuitem id="post_menu" name="Post Office" parent="config_menu" action="post_office_action" sequence="8" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   
+   
+   <!--  =========== Qualification ================= -->
+   
+   <record id="qualification_filter" model="ir.ui.view">
+            <field name="name">qualification.select</field>
+            <field name="model">qualification</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Qualification ">
+                	 	<field name="name"/>
+                </search>
+            </field>
+   </record>
+   
+   
+   <record id="qualification_form" model="ir.ui.view">
+			<field name="name">qualification</field>
+            <field name="model">qualification</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Qualification">
+                	<field name="name"/>
+                </form>
+            </field>
+    </record>
+    <record id="qualification_tree" model="ir.ui.view">
+			<field name="name">qualification</field>
+            <field name="model">qualification</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Qualification">
+                	<field name="name"/>
+                </tree>
+            </field>
+    </record>
+    <record id="qualification_action" model="ir.actions.act_window">
+            <field name="name">Qualification</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">qualification</field>
+            <field name="view_id" ref="qualification_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="qualification_filter"/>
+   </record>
+   
+   <menuitem id="qualification_menu" name="Qualification" parent="config_menu" sequence="18" action="qualification_action" groups="base.group_editor,base.group_operator,base.group_manager"/>
+  
+
+
+ <!--  ==============================Profession ====================================  -->
+ 
+  <record id="profession_profession_filter" model="ir.ui.view">
+            <field name="name">profession.profession.select</field>
+            <field name="model">profession.profession</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Profession ">
+                	 	<field name="name"/>
+                </search>
+            </field>
+   </record>
+ 
+ 
+ 
+ <record id="profession_form" model="ir.ui.view">
+			<field name="name">profession.profession</field>
+            <field name="model">profession.profession</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Profession">
+                	<field name="name"/>
+                </form>
+            </field>
+    </record>
+    <record id="profession_tree" model="ir.ui.view">
+			<field name="name">profession.profession</field>
+            <field name="model">profession.profession</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Profession">
+                	<field name="name"/>
+                </tree>
+            </field>
+    </record>
+    <record id="profession_action" model="ir.actions.act_window">
+            <field name="name">Profession</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">profession.profession</field>
+            <field name="view_id" ref="profession_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+   </record>	
+   
+   <menuitem id="profession_menu" name="Profession" sequence="12" parent="config_menu" action="profession_action" groups="base.group_editor,base.group_operator,base.group_manager" />
+   
+  <!-- =============================  Country  ================================ -->
+ 
+ 	<record id="res_country_filter" model="ir.ui.view">
+            <field name="name">res.country.select</field>
+            <field name="model">res.country</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Country">
+                	 	<field name="name"/>
+                		<field name="country_code"/>
+                </search>
+            </field>
+   </record>
+  	
+  	<record id="jkp_country_form" model="ir.ui.view">
+            <field name="name">res.country.form</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/> 
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group/group/field[@name='name']" position="after">
+                	<field name="country_code"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="jkp_country_tree" model="ir.ui.view">
+            <field name="name">res.country.tree</field>
+            <field name="model">res.country</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Country">
+                    <field name="name"/>
+                    <field name="country_code"/>
+                </tree>
+            </field>
+        </record>
+        <record id="jkp_action_country" model="ir.actions.act_window">
+            <field name="name">Countries</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.country</field>
+            <field name="view_id" ref="jkp_country_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="res_country_filter"/>
+            <field name="help">Display and manage the list of all countries that can be assigned to your partner records. You can create or delete countries to make sure the ones you are working on will be maintained.</field>
+        </record>
+    
+      <menuitem action="jkp_action_country" id="base.menu_country_partner" parent="config_menu" sequence="0" groups="base.group_editor,base.group_operator,base.group_manager"/>
+ 
+  <!--  ==============================  State  ====================================  -->
+	<record id="res_state_filter" model="ir.ui.view">
+            <field name="name">res.country.state.select</field>
+            <field name="model">res.country.state</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="State">
+                	 	<field name="name"/>
+                		<field name="country_id"/>
+                </search>
+            </field>
+   </record>
+		
+		<record id="jkp_country_state_tree" model="ir.ui.view">
+            <field name="name">res.country.state.tree</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                    <xpath expr="/tree/field[@name='code']" position="replace"/>
+
+            </field>
+        </record> 
+ 
+ 		 <record id="view_country_state_form" model="ir.ui.view">
+            <field name="name">res.country.state.form</field>
+            <field name="model">res.country.state</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="State">
+                    <field name="name" />
+                    <field name="country_id" />
+                    
+                </form>
+            </field>
+        </record>
+        
+         <record id="jkp_action_state" model="ir.actions.act_window">
+            <field name="name">States</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.country.state</field>
+            <field name="view_id" ref="jkp_country_state_tree"/>
+            <field name="limit">100</field>
+            <field name="search_view_id" ref="res_state_filter"/>
+            <field name="view_type">form</field>
+            <field name="help">Display and manage the list of all countries that can be assigned to your partner records. You can create or delete countries to make sure the ones you are working on will be maintained.</field>
+        </record>
+              
+   <!--  ==============================District ====================================  -->
+ 
+ <record id="res_district_filter" model="ir.ui.view">
+            <field name="name">res.district.select</field>
+            <field name="model">res.district</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Tahsil">
+                	 	<field name="name"/>
+                		<field name="state_id"/>
+                </search>
+            </field>
+   </record>
+ 
+ 
+ 
+ <record id="district_form" model="ir.ui.view">
+			<field name="name">res.district</field>
+            <field name="model">res.district</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="District">
+                	<field name="name"/>
+                	<field name="state_id"/>
+                </form>
+            </field>
+    </record>
+    <record id="district_tree" model="ir.ui.view">
+			<field name="name">res.district</field>
+            <field name="model">res.district</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="District">
+                	<field name="name"/>
+                	<field name="state_id"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="district_action" model="ir.actions.act_window">
+            <field name="name">District</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.district</field>
+            <field name="view_id" ref="district_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="res_district_filter"/>
+   </record>	
+   
+   
+   
+   
+   <!--  ==============================Tahsil ====================================  -->
+
+  
+  <record id="res_tahsil_filter" model="ir.ui.view">
+            <field name="name">res.tahsil.select</field>
+            <field name="model">res.tahsil</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Tahsil">
+                	 	<field name="name"/>
+                		<field name="dist_id"/>
+                </search>
+            </field>
+   </record>
+  
+  <record id="tahsil_form" model="ir.ui.view">
+			<field name="name">res.tahsil</field>
+            <field name="model">res.tahsil</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Tahsil">
+                	<field name="name"/>
+                	<field name="dist_id"/>
+                </form>
+            </field>
+    </record>
+    <record id="tahsil_tree" model="ir.ui.view">
+			<field name="name">res.tahsil</field>
+            <field name="model">res.tahsil</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Tahsil">
+                	<field name="name"/>
+                	<field name="dist_id"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="tahsil_action" model="ir.actions.act_window">
+            <field name="name">Tahsil/Taluka</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.tahsil</field>
+            <field name="view_id" ref="tahsil_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="res_tahsil_filter"/>
+   </record>	
+   
+    <!--  ==============================Tahsil ====================================  -->
+
+  
+  <record id="res_city_filter" model="ir.ui.view">
+            <field name="name">res.city.select</field>
+            <field name="model">res.city</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="City">
+                	 	<field name="name"/>
+                </search>
+            </field>
+   </record>
+  
+  <record id="city_form" model="ir.ui.view">
+			<field name="name">res.city</field>
+            <field name="model">res.city</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="City">
+                	<field name="name"/>
+                	
+                </form>
+            </field>
+    </record>
+    <record id="city_tree" model="ir.ui.view">
+			<field name="name">res.city</field>
+            <field name="model">res.city</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="City">
+                	<field name="name"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="city_action" model="ir.actions.act_window">
+            <field name="name">City</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_id" ref="city_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="res_city_filter"/>
+   </record>	
+   
+   
+   
+    <menuitem action="base.action_country" id="base.menu_country_partner" parent="config_menu" sequence="0" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   <menuitem action="jkp_action_state" id="base.menu_country_state_partner" parent="config_menu" sequence="20" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   <menuitem id="district_menu" name="Districts" parent="config_menu" action="district_action" sequence="2" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   <menuitem id="tahsil_menu" name="Tehsil/Taluka" parent="config_menu" action="tahsil_action" sequence="25" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   <menuitem id="city_menu" name="Place" parent="config_menu" action="city_action" sequence="6" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   
+   
+ 
+   
+   <!-- ============================== Registration Card ============================= -->
+   
+      
+   <record id="registration_card_search" model="ir.ui.view">
+			<field name="name">Registration Card</field>
+            <field name="model">registration.card</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Registration Card">
+                	<field name="name"/>
+                	<field name="event_id"/>
+                	<field name="devotees_id"/>
+                	<field name="devotees_reg_no"/>
+                	<field name="devotees_place"/>
+                	<field name="registration_date"/>
+                	<field name="valid_date"/>
+                </search>
+            </field>
+    </record>
+   
+   <record id="registration_card_form" model="ir.ui.view">
+			<field name="name">Registration Card</field>
+            <field name="model">registration.card</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Registration Card">
+                	<field name="name"/>
+                	<field name="devotees_reg_no"/>
+                	<field name="registration_date"/>
+                	<field name="valid_date"/>
+                	<field name="event_id"/>
+                	<field name="devotees_id" on_change="onchange_devotees(devotees_id)"/>
+                	<field name="devotees_place"/>
+                	
+                </form>
+            </field>
+    </record>
+    <record id="registration_card_tree" model="ir.ui.view">
+			<field name="name">Registration Card</field>
+            <field name="model">registration.card</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Registration Card">
+                	<field name="name"/>
+                	<field name="devotees_reg_no"/>
+                	<field name="registration_date"/>
+                	<field name="valid_date"/>
+                	<field name="event_id"/>
+                	<field name="devotees_id" on_change="onchange_devotees(devotees_id)"/>
+                	<field name="devotees_place"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="registration_card_action" model="ir.actions.act_window">
+            <field name="name">Registration Card</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">registration.card</field>
+            <field name="view_id" ref="registration_card_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="registration_card_search"/>
+   </record>	
+   
+   <menuitem id="registration_card_action_menu" name="Registration Cards" action="registration_card_action" sequence="3" parent="jkp_devotees_sub_menu" />
+   
+     </data>
+</openerp>	
+   

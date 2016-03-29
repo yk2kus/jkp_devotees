@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="devotee_sequence_type" model="ir.sequence.type">
+			<field name="name">Devotee Sequence</field>
+			<field name="code">jkp.devotees</field>
+		</record>
+		
+		<record id="devotee_sequence" model="ir.sequence">
+			<field name="name">Devotee Sequence</field>
+			<field name="code">jkp.devotees</field>
+			<field name="prefix">DEV</field>
+			<field name="padding">6</field>
+		</record>
+		
+		<record id="registration__type" model="ir.sequence.type">
+			<field name="name">Registration Sequence</field>
+			<field name="code">registration.card</field>
+		</record>
+		
+		<record id="registration_sequence" model="ir.sequence">
+			<field name="name">Registration Sequence</field>
+			<field name="code">registration.card</field>
+			<field name="prefix">REG</field>
+			<field name="padding">4</field>
+		</record>
+		
+	</data>
+</openerp>

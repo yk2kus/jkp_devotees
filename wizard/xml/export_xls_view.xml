@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="export_data_form" model="ir.ui.view">
+			<field name="name">Export Data</field>
+			<field name="model">export.data</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Export Data">
+						<field name="filename"/>
+						<newline/>
+						<field name="export_data" filename="filename" attrs="{'invisible':[('export_data','=',False)]}"/>
+						<newline/>
+						<label string="" colspan="1"/>
+						<button name="get_data" string="Click here to export data" type="object" />
+				</form>
+			</field>
+		
+		</record>
+		
+		 <record id="export_data_action" model="ir.actions.act_window">
+            <field name="name">Export Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">export.data</field>
+            <field name="view_id" ref="export_data_form"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="nodestroy">True</field>
+   		</record>	
+   
+   		<menuitem id="export_data_id" name="Export" action="export_data_action" parent="import_export_id" />
+	</data>
+</openerp>

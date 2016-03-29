@@ -1,0 +1,50 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jkp_devotees mgr,Devotees,model_jkp_devotees,base.group_manager,1,1,1,1
+access_lang_known mgr,Launguage,model_lang_known,base.group_manager,1,1,1,1
+access_profession_profession mgr,Profession,model_profession_profession,base.group_manager,1,1,1,1
+access_tv_tv mgr,TV channel,model_tv_tv,base.group_manager,1,1,1,1
+access_res_district mgr,District,model_res_district,base.group_manager,1,1,1,1
+access_res_tahsil mgr,Tahsil,model_res_tahsil,base.group_manager,1,1,1,1
+access_post_office mgr,Post Office,model_post_office,base.group_manager,1,1,1,1
+access_year_jkp mgr,Associated Since,model_year_jkp,base.group_manager,1,1,1,1
+access_devotee_family mgr,Family Members,model_devotee_family,base.group_manager,1,1,1,1
+access_jkp_pracharak mgr,Pracharak,model_jkp_pracharak,base.group_manager,1,1,1,1
+access_qualification mgr,qualification,model_qualification,base.group_manager,1,1,1,1
+access_mail_logs mgr,Email Logs,model_mail_logs,base.group_manager,1,1,0,1
+access_message_logs mgr,Message Logs,model_devotees_logs,base.group_manager,1,1,0,1
+access_jkp_attachments mgr,Attachments,model_jkp_attachments,base.group_manager,1,1,1,1
+access_jkp_attachments mgr,City,model_res_city,base.group_manager,1,1,1,1
+access_jkp_category mgr,Category,model_jkp_category,base.group_manager,1,1,1,1
+access_jkp_devotees operator,Devotees,model_jkp_devotees,base.group_operator,1,1,1,0
+access_lang_known operator,Launguage,model_lang_known,base.group_operator,1,1,1,0
+access_profession_profession operator,Profession,model_profession_profession,base.group_operator,1,1,1,0
+access_tv_tv operator,TV channel,model_tv_tv,base.group_operator,1,1,1,0
+access_res_district operator,District,model_res_district,base.group_operator,1,1,1,0
+access_res_tahsil operator,Tahsil,model_res_tahsil,base.group_operator,1,1,1,0
+access_post_office operator,Post Office,model_post_office,base.group_operator,1,1,1,0
+access_year_jkp operator,Associated Since,model_year_jkp,base.group_operator,1,1,1,0
+access_devotee_family operator,Family Members,model_devotee_family,base.group_operator,1,1,1,0
+access_qualification operator,qualification,model_qualification,base.group_operator,1,1,1,0
+access_jkp_pracharak operator,Pracharak,model_jkp_pracharak,base.group_operator,1,1,1,0
+access_mail_logs operator,Email Logs,model_mail_logs,base.group_operator,1,1,0,0
+access_jkp_attachments operator,Attachments,model_jkp_attachments,base.group_operator,1,1,1,0
+access_message_logs operator,Message Logs,model_devotees_logs,base.group_operator,1,1,0,0
+access_jkp_attachments operator,City,model_res_city,base.group_operator,1,1,1,0
+access_jkp_category operator,Category,model_jkp_category,base.group_operator,1,1,1,0
+access_jkp_devotees editor,Devotees,model_jkp_devotees,base.group_editor,1,1,0,0
+access_lang_known editor,Launguage,model_lang_known,base.group_editor,1,1,0,0
+access_profession_profession editor,Profession,model_profession_profession,base.group_editor,1,1,0,0
+access_tv_tv editor,TV channel,model_tv_tv,base.group_editor,1,1,0,0
+access_res_district editor,District,model_res_district,base.group_editor,1,1,0,0
+access_res_tahsil editor,Tahsil,model_res_tahsil,base.group_editor,1,1,0,0
+access_post_office editor,Post Office,model_post_office,base.group_editor,1,1,0,0
+access_year_jkp editor,Associated Since,model_year_jkp,base.group_editor,1,1,0,0
+access_devotee_family editor,Family Members,model_devotee_family,base.group_editor,1,1,0,0
+access_qualification editor,qualification,model_qualification,base.group_editor,1,1,0,0
+access_jkp_pracharak editor,Pracharak,model_jkp_pracharak,base.group_editor,1,1,0,0
+access_mail_logs user,Email Logs,model_mail_logs,base.group_editor,1,1,0,0
+access_message_logs user,Message Logs,model_devotees_logs,base.group_editor,1,1,0,0
+access_jkp_attachments user,Attachments,model_jkp_attachments,base.group_editor,1,1,0,0
+access_jkp_category user,Category,model_jkp_category,base.group_editor,1,1,0,0
+access_jkp_city  user,City,model_res_city,base.group_editor,1,1,0,0
+access_jkp_events user,jkp.events,model_jkp_events,base.group_jkp_event,1,1,1,1

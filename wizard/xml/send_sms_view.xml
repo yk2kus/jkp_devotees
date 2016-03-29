@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+	
+	 <!--    ======= SMS Schedular =======  -->
+    
+		
+	  	<record id="ir_cron_sms_gateway_action" model="ir.cron">
+            <field name="name">Fetch SMS</field>
+            <field name="interval_number">2</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">devotees.logs</field>
+            <field name="function">_fetch_sms</field>
+            <field name="args">()</field>
+        </record>
+    
+    <!--    ======= SMS Configuration =======  -->
+    
+    	<record id="message_configuration_form" model="ir.ui.view">
+    		<field name="name">Outgoing Message Server</field>
+    		<field name="model">message.server</field>
+    		<field name="type">form</field>
+    		<field name="arch" type="xml">
+    			<form string="Outgoing Message Server">
+	    			<field name="name" colspan="4"/>
+	    			<separator string="Security and Authentication " colspan="4"/>
+	    			<field name="user_name" colspan="4"/>
+	    			<field name="password" password="True" colspan="4"/>
+    			</form>
+    		</field>    	
+    	</record>
+    	
+    	<record id="message_configuration_tree" model="ir.ui.view">
+    		<field name="name">Outgoing Message Server</field>
+    		<field name="model">message.server</field>
+    		<field name="type">tree</field>
+    		<field name="arch" type="xml">
+    			<tree string="Outgoing Message Server">
+	    			<field name="name"/>
+	    			<field name="user_name"/>
+    			</tree>
+    		</field>    	
+    	</record>
+    	
+    	 <record id="message_configuration_action" model="ir.actions.act_window">
+            <field name="name">Outgoing Message Server</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">message.server</field>
+            <field name="view_id" ref="message_configuration_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+  		 </record>
+
+    
+    
+    <!--    ======= SMS WIZARD =======  -->
+    
+    	  <record id="devotees_logs_filter" model="ir.ui.view">
+            <field name="name">devotees.logs</field>
+            <field name="model">devotees.logs</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Message Logs">
+                	<field name="user_id"/>
+                	<field name="log_id"/>
+                	<field name="log_date"/>
+                	<field name="creation_date"/>
+                	<field name="mobile_no"/>
+                	<field name="state"/>
+                	<field name="status"/>
+                	<field name="schedule_date"/>
+                	<field name="type"/>
+                	<field name="content"/>
+                </search>
+            </field>
+   </record>
+  
+  <record id="devotees_logs_form" model="ir.ui.view">
+			<field name="name">devotees.logs</field>
+            <field name="model">devotees.logs</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Message Logs" create="false">
+                	<field name="user_id"/>
+                	<field name="log_date"/>
+                	<field name="status"/>
+                	<field name="mobile_no"/>
+                	<field name="state"/>
+                	<field name="schedule_date"/>
+                	<field name="content" colspan="4"/>
+                </form>
+            </field>
+    </record>
+    <record id="devotees_logs_tree" model="ir.ui.view">
+			<field name="name">devotees.logs</field>
+            <field name="model">devotees.logs</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Message Logs" create="false" colors="grey:state in ('Sent', 'Cancel');blue:state=='Outgoing';red:state=='Failed'">
+                	<field name="user_id"/>
+                	<field name="log_id"/>
+                	<field name="log_date"/>
+                	<field name="creation_date"/>
+                	<field name="mobile_no"/>
+                	<field name="state"/>
+                	<field name="status"/>
+                	<field name="schedule_date"/>
+                	<field name="type"/>
+                	<field name="content" colspan="4"/>
+                	
+                </tree>
+            </field>
+    </record>
+    
+    <record id="devotees_logs_action" model="ir.actions.act_window">
+            <field name="name">Message Logs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">devotees.logs</field>
+            <field name="view_id" ref="devotees_logs_tree"/>
+            <field name="limit">100</field>
+            <field name="auto_refresh">1</field>
+            <field name="domain">[('state2','=','Draft')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="devotees_logs_filter"/>
+   </record>	
+   
+   <menuitem id="sub_menu_email" name="Message Logs" action="devotees_logs_action" parent="message_main_menu" sequence="12" groups="base.group_editor,base.group_operator,base.group_manager"/>
+   
+   
+   
+   <!--   ============= SEND SMS WIZARD ======== -->
+    
+	
+		<record id="jkp_sms_wizard" model="ir.ui.view">
+			<field name="name">Send SMS</field>
+			<field name="model">send.sms</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Send SMS" version="7.0">
+					<group col="4" colspan="4">
+						
+						<separator string="Send To :" colspan="4"/>
+						<group col="6" colspan="4">
+							<field name="to_selected"/>
+							<field name="to_all"/>
+							<field name="to_category"/>
+							<field name="msg_category_ids" colspan="6" placeholder="Select categories here ..." attrs="{'invisible':[('to_category','!=',True)]}" widget="many2many_tags"  />
+						</group>
+						<group col="6" colspan="4" string="Configuration">
+							<field name="message_template" colspan="2" on_change="onchange_template(message_template)"/>
+							<label string='' colspan="2"/>
+							<field name="server_id"/>
+							<field name="schedule_sms" colspan="2"/>
+							<label string='' colspan="2"/>
+							<field name="schedule_date" attrs="{'invisible':[('schedule_sms','!=',True)]}" required="1"/>
+							
+						</group>
+					</group>
+					<separator string="SMS" />
+					<field name="sms_text" colspan="4" placeholder="Type your message here" nolabel="1"/>
+					<separator string="Mobile No" />
+					<field name="mobile_no" colspan="4" placeholder="Additional mobile numbers should be separated by commas.You do not need to type mobile numbers of selected devotees.Message will be send to them automatically." nolabel="1"/>
+					<footer>
+					<!--  	<button name="sms_send" string="Send SMS" type="object" class="oe_highlight"/>   -->
+                        <button name="sms_log_create" string="Send SMS" type="object" class="oe_highlight"/>
+                         or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		<record id="jkp_sms_action" model="ir.actions.act_window">
+			<field name="name">Send SMS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">send.sms</field>
+            <field name="view_id" ref="jkp_sms_wizard"/>
+             <field name="target">new</field>             
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+		
+		</record>
+		
+		<act_window          
+            id="act_jkp_sms" name="Send SMS"
+            res_model="send.sms"
+            src_model="jkp.devotees"
+            view_id="jkp_sms_wizard"
+			target="new"
+			/>	
+			
+			
+		<act_window          
+            id="act_jkp_mass_sms" name="Send SMS"
+            res_model="send.sms"
+            src_model="jkp.devotees"
+            view_id="jkp_sms_wizard"
+			multi="True"
+			target="new"
+			/>
+			
+		<record id="sms_template_search" model="ir.ui.view">
+			<field name="name">Message Template</field>
+			<field name="model">message.template</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Message Template">
+					<field name="name" colspan="4"/>
+					<field name="template_content" height="250" colspan="4"/>
+				</search>
+			</field>
+		</record>	
+			
+		<record id="sms_template_form" model="ir.ui.view">
+			<field name="name">Message Template</field>
+			<field name="model">message.template</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Message Template">
+					<field name="date"/>
+					<newline/>
+					<field name="name" colspan="4"/>
+					<field name="template_content" widget="text" colspan="4"/>
+				</form>
+			</field>
+		</record>
+		<record id="sms_template_tree" model="ir.ui.view">
+			<field name="name">Message Template</field>
+			<field name="model">message.template</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Message Template">
+					<field name="date"/>
+					<field name="name" colspan="4"/>
+					<field name="template_content"  colspan="4"/>
+				</tree>
+			</field>
+		</record>
+	
+		
+		<record id="sms_template_action" model="ir.actions.act_window">
+            <field name="name">Message Template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">message.template</field>
+            <field name="view_id" ref="sms_template_tree"/>
+            <field name="limit">100</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sms_template_search"/>
+   </record>
+			
+	<menuitem id="sms_template_menu" name="Message Template" action="sms_template_action" parent="message_main_menu" sequence="10" groups="base.group_editor,base.group_operator,base.group_manager"/>
+    <menuitem id="message_server_menu" name="Outgoing Message Server" action="message_configuration_action" parent="message_main_menu" sequence="18" groups="base.group_editor,base.group_operator,base.group_manager"/>
+		
+	</data>
+</openerp>

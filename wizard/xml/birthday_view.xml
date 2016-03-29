@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="jkp_birthday_form" model="ir.ui.view">
+			<field name="name">Birthday List</field>
+			<field name="model">jkp.birthday</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Birthday">
+						<group col="4" colspan="4">
+							<group col="2" colspan="2">
+							<field name="day"/>
+							</group>
+							<group col="2" colspan="2">
+							<field name="month"/>
+							
+							</group>
+						<button name="get_birthday" string="Get Birthday List" type="object" />
+						</group>
+						<group colspan="4">
+							<separator string="" colspan="4"/>
+							<field name="devotees_ids" colspan="2" nolabel="1">
+								<tree string="Devotees">
+									<field name="name"/>
+									<field name="dob"/>
+									<field name="email"/>
+								</tree>
+								
+							</field>							
+						</group>
+				</form>
+			</field>
+		
+		</record>
+		
+		 <record id="jkp_birthday_action" model="ir.actions.act_window">
+            <field name="name">Birthdays</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.birthday</field>
+            <field name="view_id" ref="jkp_birthday_form"/>
+            
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="nodestroy">True</field>
+   		</record>	
+   
+   		<menuitem id="birthday_menu" name="Birthday" action="jkp_birthday_action" sequence="3" parent="jkp_devotees_sub_menu" />
+	</data>
+</openerp>

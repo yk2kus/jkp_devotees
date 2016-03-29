@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+    	<pageGraphics>
+    	<fill color="gray"/>
+        <setFont name="Helvetica" size="10"/>
+        <drawRightString x="320.0" y="0.6cm">Page : <pageNumber/> </drawRightString>
+        </pageGraphics>
+      <frame id="first" x1="57.0" y1="27.0" width="481" height="800"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
+      <blockBackground colorName="#e6e6e6" start="0,0" stop="2,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table2">
+      
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Times-Bold" fontSize="14.0" leading="17" alignment="CENTER"/>
+    <paraStyle name="P11" fontName="Times-Roman" fontSize="8.0" leading="17" alignment="RIGHT"/>
+    <paraStyle name="P2" fontName="Times-Roman" fontSize="11.5" leading="17" alignment="LEFT"/>
+    <paraStyle name="P3" fontName="Times-Roman" leading="17" alignment="LEFT"/>
+    <paraStyle name="P33" fontSize="13.0" fontName="Times-Bold" leading="17" alignment="LEFT"/>
+    <paraStyle name="Standard" fontName="Times-Roman"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Times-Roman" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Times-Roman"/>
+    <paraStyle name="Table Contents" fontName="Times-Roman"/>
+    <paraStyle name="Table Heading" fontName="Times-Roman" alignment="CENTER"/>
+    <images/>
+  </stylesheet>
+  <story> 
+  <para style="P1">[[repeatIn(objects,'o')]]</para>
+  <para style="P11">
+      <font face="Times-Roman">[[ time.strftime('%d-%B-%Y', time.strptime(get_time(), '%Y-%m-%d')) ]]</font>
+    </para>
+  <para style="P1">JKP DEVOTEES </para>
+  <para style="P1">
+      <font color="white"> </font>
+    </para>
+  <blockTable colWidths="161.0,161.0,161.0" style="Table1">
+      <tr>
+        <td>
+          <para style="P33">Name</para>
+        </td>
+        <td>
+          <para style="P33">Place</para>
+        </td>
+        <td>
+          <para style="P33">Phone No.</para>
+        </td>
+      </tr>
+    </blockTable>
+  
+  
+    
+    
+  <section>
+    <para>[[ repeatIn(get_data(o.from_date,o.to_date),'line') ]]</para>
+    <blockTable colWidths="161.0,161.0,161.0" style="Table2">
+      <tr>
+        <td>
+          <para style="Table Contents">
+            <font color="black"> [[ line[0] ]] </font>
+          </para>
+        </td>
+        <td>
+          <para style="Table Contents">
+            <font color="black"> [[ line[1] ]] </font>
+          </para>
+        </td>
+        <td>
+          <para style="Table Contents">
+            <font color="black"> [[ line[2] ]] </font>
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+    </section>
+ 
+  </story>
+</document>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		 <record id="duplicate_dev_wizard" model="ir.ui.view">
+            <field name="name">Matching Devotee's Records</field>
+            <field name="model">check.duplicates</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Duplicate Records" version="7.0">
+            		<field name="duplicate_devotee_ids" nolabel="1" colspan="4">
+            			<tree>
+            				<field name="sequence"/>
+		                    <field name="reg_no"/>
+		                    <field name="name" invisible="1"/>
+		                	<field name="first_name"  />	
+		                	<field name="last_name" />
+							<field name="f_name"/>
+							<field name="dob"/>
+							<field name="profession"/>
+							<field name="qualification_ids" invisible="1"/>
+							<field name="marital"/>
+							<field name="mobile1" string="Mobile No"/>
+							<field name="gender" invisible="1"/>
+							<field name="mother_tongue" />
+		                    <field name="sms" invisible="1"/>
+							<field name="letter" invisible="1"/>
+							<field name="mail" invisible="1"/>
+							<field name="through" />
+							<field name="pracharak_name"/>
+							<field name="jkp_year"/>
+							<field name="country_id"/>
+							<field name="state_id"/>
+							<field name="dist_id"/>
+							<field name="tahsil"/>
+							<field name="city_id"/>
+		                    <field name="email"/>
+                  
+            			</tree>
+            		</field>
+            		<footer>  		
+	            		<button name="match_found"  string="Discard Current Form" type="object" class="oe_highlight"/>
+	            		 or
+	            		<button special="cancel" string="Continue" class="oe_link" icon="gtk_cancel"/>
+            		</footer>
+            	</form>
+            </field>
+          </record>
+          
+          <record id="duplicate_dev_action" model="ir.actions.act_window">
+            <field name="name">Matching Devotee's Records</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.duplicates</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            
+            <field name="target">new</field>
+             <field name="view_id" ref="duplicate_dev_wizard"/>
+        </record>
+	
+	</data>
+</openerp>

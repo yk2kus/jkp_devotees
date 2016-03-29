@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    	 <record model="ir.ui.view" id="wiz_image_form_view">
+                <field name="name">wiz_image.form</field>
+                <field name="model">wiz.image</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Add Image">
+	                    <group col="4" colspan="4">
+	                    	<group col="4" colspan="4">
+		                    	<field name="image" widget="image" nolabel="1"/>
+		                    	
+	                    	</group>
+	                    	<group col="4" colspan="4">
+	                    		<field name="image_name"/>
+                       		</group>
+	                       </group>
+	                       <group col="4" colspan="4">
+	                       		  <separator colspan="4" />
+	                       		  <label string="" colspan="2"/>
+		                          <button icon='gtk-cancel' special="cancel" string="_Cancel" />
+		                          <button icon='gtk-forward' name="create_image" string="_Done" type="object"/>
+	                   		</group>
+                    </form>
+                </field>
+            </record>
+            
+
+			
+            <record model="ir.actions.act_window" id="action_wiz_image">
+                <field name="name">Image</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">wiz.image</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+                <field name="view_id" ref="wiz_image_form_view" />
+                <field name="target">new</field>
+            </record>
+            
+    
+    	 
+    </data>
+</openerp>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		 <record id="jkp_event_filter" model="ir.ui.view">
+            <field name="name">JKP Events</field>
+            <field name="model">jkp.events</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Years">
+                	 	<field name="name"/>
+                	 	<field name="from_date"/>
+	            </search>
+            </field>
+   </record>
+   
+   <record id="jkp_event_calendar" model="ir.ui.view">
+     	<field name="name">JKP Events</field>
+     	<field name="model">jkp.events</field>
+     	<field name="type">form</field>
+     	<field name="arch" type="xml">
+                <calendar string="JKP Festival" date_start="from_date" date_stop="to_date" color="user_id">
+                	<field name="name"/>
+                </calendar>
+            </field>
+     </record>
+   
+     <record id="jkp_event_form" model="ir.ui.view">
+     	<field name="name">JKP Events</field>
+     	<field name="model">jkp.events</field>
+     	<field name="type">form</field>
+     	<field name="arch" type="xml">
+                <form string="JKP Festival">
+                	<field name="name"/>
+                	<field name="public"/>
+                	<field name="from_date"/>
+                	<field name="to_date"/>
+                </form>
+            </field>
+     </record>
+       <record id="jkp_event_tree" model="ir.ui.view">
+     	<field name="name">JKP Events</field>
+     	<field name="model">jkp.events</field>
+     	<field name="type">tree</field>
+     	<field name="arch" type="xml">
+                <tree string="JKP Festival">
+                	<field name="name"/>
+                	<field name="from_date"/>
+                	<field name="to_date"/>
+                	<field name="public"/>
+                </tree>
+            </field>
+     </record>
+     
+     <record id="jkp_event_action" model="ir.actions.act_window">
+            <field name="name">JKP Events</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jkp.events</field>
+            <field name="view_id" ref="jkp_event_calendar"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form,</field>
+            <field name="domain">[('user_ids','=',uid)]</field>
+            <field name="search_view_id" ref="jkp_event_filter"/>
+   </record>
+   
+	</data>
+</openerp>
+

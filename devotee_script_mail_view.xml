@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	    	
+    	<record id="ir_cron_mail_gateway_action" model="ir.cron">
+            <field name="name">Fetchmail JKP</field>
+            <field name="interval_number">3</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">mail.compose.message</field>
+            <field name="function">send_script_mail</field>
+            <field name="args">()</field>
+        </record>
+        
+        <record id="ir_cron_mail_birthday_gateway_action" model="ir.cron">
+            <field name="name">Fetchmail Birthday</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">mail.compose.message</field>
+            <field name="function">mail_birthday_queue</field>
+            <field name="args">()</field>
+        </record> 
+        
+        <record id="base.view_attachment_form" model="ir.ui.view">
+            <field name="model">ir.attachment</field>
+            <field name="arch" type="xml">
+                <form string="Attachments" version="7.0">
+                   <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group string="Attachment">
+                            <field name="type" invisible="1"/>
+                            <field name="datas" string="Attach File" filename="datas_fname" attrs="{'invisible':[('type','=','url')]}"/>
+                         <!--  <field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}" class="oe_inline oe_right"/>    -->
+                         <field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}" on_change="onchange_datas_fname(datas_fname)" class="oe_inline oe_right"/>
+                            <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+                            <field name="inline"/>
+
+                            <field name="cid" invisible="1" attrs="{'invisible': [('inline', '=', False)]}"/>
+                        </group>
+                        <group string="Attachment Preview">
+                        	<field name="preview_image" widget="image" height="100" width="100" nolabel="1"/>
+                          
+                        </group>
+                        
+                    </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_attachment" model="ir.actions.act_window">
+            <field name="name">Attachments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.attachment</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+        <menuitem action="action_attachment" id="base.menu_action_attachment" parent="base.next_id_4"/>
+        
+        
+        <record model="ir.ui.view" id="jkp_ir_mail_server_form">
+            <field name="model">ir.mail_server</field>
+            <field name="inherit_id" ref="base.ir_mail_server_form"/>
+            <field name="arch" type="xml">
+	                <xpath expr="/form/sheet/group/field[@name='smtp_pass']" position="after">
+	                	<separator string="Users" colspan="4"/>
+	                	<field name="user_ids" colspan="4" nolabel="1"/>
+	                </xpath>
+	             
+             </field>
+         </record>
+        
+        <record model="ir.ui.view" id="email_template.email_template_tree">
+            <field name="name">email.template.tree</field>
+            <field name="model">email.template</field>
+            <field name="arch" type="xml">
+                <tree string="Templates" >
+                	<field name="creation_date"/>
+                    <field name="mail_server_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="model_id"/>
+                    <field name="subject"/>
+                    <field name="email_from"/>
+        		<!--  	<field name="attachment_ids"/>  -->
+                </tree>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="email_template.email_template_form">
+            <field name="name">email.template.form</field>
+            <field name="model">email.template</field>
+            <field name="arch" type="xml">
+            <form string="Templates" version="7.0">
+            	 <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/><h1><field name="name" string="Template Name" required="1"/></h1>
+                            
+                            <field name="model" invisible="1"/>
+                        </div>
+                      <!--  <div class="oe_right oe_button_box" name="buttons">
+                            <field name="ref_ir_act_window" invisible="1"/>
+                            <button name="create_action" string="Add context action" type="object"
+                                    attrs="{'invisible':[('ref_ir_act_window','!=',False)]}"
+                                    help="Display an option on related documents to open a composition wizard with this template"/>
+                            <button name="unlink_action" string="Remove context action" type="object" 
+                                    attrs="{'invisible':[('ref_ir_act_window','=',False)]}"
+                                    help="Remove the contextual action to use this template on related documents"/>
+                            <button name="%(email_template.wizard_email_template_preview)d" string="Preview"
+                                    type="action" target="new"
+                                    context="{'template_id':active_id}"/>
+                        </div> -->
+                      
+                                <group>
+                                   
+                                     
+                                      
+                             <!--     <field name="user_signature"/>    -->
+                                    
+                            
+                                       <field name="subject" required="1"/>
+                                       <separator string="Email Content" colspan="4"/>
+                                       <field name="body_html" widget="html" width="250" height="250" nolabel="1" colspan="2" placeholder="Email contents (in raw HTML format)"/>
+                                   
+                                </group>
+                            
+                                <group>
+                                    
+                                   <separator string="Attachments" colspan="4"/>
+                                    <field name="attachment_ids" widget="one2many_list" colspan="4" nolabel="1">
+                          <!--  <tree><field name="name"/></tree>     -->
+                          				<tree>
+
+                                            <field name="name"/>
+
+                                            <field name="inline"/>
+                                           
+                                        </tree>
+                          
+                                    </field>
+            <!--                      <separator string="Signature" colspan="4"/>
+                               <field name="is_signature"/>
+                               <field name="email_sign" widget="text" height="100" attrs="{'invisible':[('is_signature','!=',True)],'required':[('is_signature','!=',False)]}" colspan="4"/>
+            -->                       	
+                                </group>
+                       </sheet>
+                    </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mail.email_compose_message_wizard_form">
+            <field name="name">mail.compose.message.form</field>
+            <field name="model">mail.compose.message</field>
+            <field name="arch" type="xml">
+                <form string="Compose Email" version="7.0">
+                    <group>
+                        <!-- truly invisible fields for control and options -->
+                        <field name="composition_mode" invisible="1"/>
+                        <field name="model" invisible="1"/>
+                        <field name="res_id" invisible="1"/>
+                        <field name="parent_id" invisible="1"/>
+                        <!-- visible wizard -->
+                        <!--  Additional contacts
+                        	<field name="devotees_ids" widget="many2many_tags_email" placeholder="Add contacts to notify..."
+                                context="{'force_email':True}" />
+              			-->
+              		
+              		<group col="4" colspan="4">              			
+              			<field name="all"/>
+              			<field name="category"/>
+              		
+              		</group>
+              		
+              		<field name="category_ids" widget="many2many_tags" nolabel="1" colspan="4" placeholder="Select categories to send email" attrs="{'invisible':[('category','=',False)]}"/>
+              		<newline/>
+              		<field name="additional_contacts" nolabel="1" colspan="4" placeholder="Enter Additional contacts to send email. Email addresses should be comma (,) separated."/>	
+              		
+              		<field name="subject" nolabel="1" colspan="4" placeholder="Subject..."/>
+              		
+              		
+                    <newline/>
+                    
+                    </group>
+                    <field name="body" widget="html"/>
+                    <field name="attachment_ids" string="Attachments" widget="one2many_list"/>
+                    <group col="4" colspan="4">
+                    	<field name="mail_server_id" colspan="4" domain="[('user_ids','=',uid)]" />
+	                    <field name="schedule_mail"/>
+	                    <field name="schedule_date" attrs="{'invisible':[('schedule_mail','=',False)],'required':[('schedule_mail','=',True)]}"/>
+                    </group>
+                    <footer>
+                    	<button string="Send" name="mail_queue" type="object" class="oe_highlight"/>
+                        <!--  <button string="Send" name="send_script_mail" type="object" class="oe_highlight"/> -->
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+
+        
+        <act_window          
+            id="act_jkp_send_mass_mail" name="Send Email"
+            res_model="mail.compose.message"
+            src_model="jkp.devotees"
+            view_id="mail.email_compose_message_wizard_form"
+			target="new"
+			multi="True"
+			/>	 
+		<act_window          
+            id="act_jkp_send_mail" name="Send Email"
+            res_model="mail.compose.message"
+            src_model="jkp.devotees"
+            view_id="mail.email_compose_message_wizard_form"
+			target="new"
+			/>	 
+        
+         <record id="mail_logs_search" model="ir.ui.view">
+        	<field name="name">Email Logs</field>
+			<field name="model">mail.logs</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="E-Mail Logs">
+					<field name="user_id"/>
+					<field name="date"/>
+					<field name="log_id"/>
+					<field name="email_from"/>
+					<field name="email_to"/>
+					<field name="subject"/>
+					<field name="state"/>
+					<field name="status"/>
+					<field name="schedule_date"/>
+					<field name="type"/>
+				</search>
+			
+			</field>        
+        </record>
+        
+        <record id="mail_logs_form" model="ir.ui.view">
+        	<field name="name">Email Logs</field>
+			<field name="model">mail.logs</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="E-Mail Logs">
+					<field name="user_id"/>
+					<field name="date"/>
+					<field name="email_from"/>
+					<field name="email_to"/>
+					<field name="subject"/>
+					<field name="state"/>
+					<field name="status"/>
+					<field name="schedule_date"/>
+					<field name="log_id"/>
+					<field name="data_ids" colspan="4"/>
+				</form>
+			
+			</field>        
+        </record>
+        <record id="mail_logs_tree" model="ir.ui.view">
+        	<field name="name">Email Logs</field>
+			<field name="model">mail.logs</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Emails" create="false" colors="grey:state in ('sent', 'cancel');blue:state=='outgoing';red:state=='failed'">
+					<field name="user_id"/>
+					<field name="date"/>
+					<field name="log_id"/>
+					<field name="email_from"/>
+					<field name="email_to"/>
+					<field name="subject"/>
+					<field name="state"/>
+					<field name="status"/>
+					<field name="schedule_date"/>
+					<field name="type"/>
+					<button name="retry_sending" type="object" string="Retry"  icon="gtk-redo" states="failed,cancel"/>
+					<button name="cancel_sending" type="object" string="Cancel"  icon="terp-gtk-stop" states="outgoing"/>
+				</tree>
+			</field>        
+        </record>
+
+        <record model="ir.actions.act_window" id="action_mail_logs_tree">
+            <field name="name">Email Logs</field>
+            <field name="res_model">mail.logs</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state2','=','Draft')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="mail_logs_tree"/>
+        </record>
+
+         <menuitem name="Email Logs" id="menu_email_logs" parent="base.menu_email"
+                    action="action_mail_logs_tree" groups="base.group_editor,base.group_operator,base.group_manager"/>
+            
+            
+       <record id="birthday_configuration_form" model="ir.ui.view">
+        	<field name="name">Birthday</field>
+			<field name="model">birthday.configuration</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Configuration">
+					<field name="date"/>
+					<field name="template_id"/>
+					<field name="server_id"/>
+					<field name="user_id"/>
+				</form>
+			
+			</field>        
+        </record>
+        <record id="birthday_configuration_tree" model="ir.ui.view">
+        	<field name="name">Birthday</field>
+			<field name="model">birthday.configuration</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Configuration">
+					<field name="date"/>
+					<field name="template_id"/>
+					<field name="server_id"/>
+					<field name="user_id"/>
+				</tree>
+			</field>        
+        </record>
+
+        <record model="ir.actions.act_window" id="action_birthday_configuration">
+            <field name="name">Birthday</field>
+            <field name="res_model">birthday.configuration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="birthday_configuration_tree"/>
+        </record>
+
+         <menuitem name="Birthday Configuration" id="menu_birthday_config" parent="base.menu_email"
+                    action="action_birthday_configuration" groups="base.group_editor,base.group_operator,base.group_manager"/>
+         
+           
+            
+                    
+<!--                     
+           <record id="change_mail_state_form" model="ir.ui.view">
+        	<field name="name">Set To Outgoing</field>
+			<field name="model">change.mail.state</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Set To Outgoing">
+					<separator strcolspan="4"/>
+					<button name="set_to_outgoing" type="object" string="Outgoing"/>
+					<button name="cancel" type="special" string="Cancel"/>
+				</form>
+			</field>        
+        </record>  
+        
+        <act_window id="action_change_mail_state"
+            multi="True"
+            key2="client_action_multi" name="Set to Out going"
+            res_model="change.mail.state" src_model="mail.logs"
+            view_mode="form" target="new" view_type="form" view_id="change_mail_state_form"/>
+         
+      
+    -->     
+        
+</data>
+</openerp>

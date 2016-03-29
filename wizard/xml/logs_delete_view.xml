@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="message_delete_form" model="ir.ui.view">
+			<field name="name">Delete logs</field>
+			<field name="model">message.logs.delete</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Delete logs" version="7.0">
+					<group>
+						<field name="all"/>
+						<newline/>
+						<field name="selected"/>
+						<newline/>
+						<field name="from_date"/>
+						<newline/>
+						
+						<field name="till_date"/>
+						<newline/>
+					</group>
+					<footer>
+						<button name="message_delete" type="object" string="Delete"/>
+						<button name="message_cancel" type="object" string="Cancel Sending"/>
+						<button name="message_retry" type="object" string="Retry Sending"/>
+						
+					</footer>
+				</form>				
+			</field>		
+		</record>
+		
+		<record id="message_delete_action" model="ir.actions.act_window">
+			<field name="name">Delete logs</field>
+			<field name="res_model">message.logs.delete</field>
+			<field name="view_mode">form</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="message_delete_form"/>		
+		</record>
+		
+		<act_window          
+            id="act_msg_delete" name="Message Logs Action"
+            res_model="message.logs.delete"
+            src_model="devotees.logs"
+            view_id="message_delete_form"
+			target="new"
+			multi="True"
+			/>
+	
+	
+	
+		<record id="mail_delete_form" model="ir.ui.view">
+			<field name="name">Delete logs</field>
+			<field name="model">mail.logs.delete</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Delete logs" version="7.0">
+					<group>
+						<field name="all"/>
+						<newline/>
+						<field name="selected"/>
+						<newline/>
+						<field name="from_date"/>
+						<newline/>
+						
+						<field name="till_date"/>
+						<newline/>
+					</group>
+					<footer>
+						<button name="message_delete" type="object" string="Delete"/>
+						<button name="message_cancel" type="object" string="Cancel Sending"/>
+						<button name="message_retry" type="object" string="Retry Sending"/>
+						
+					</footer>
+				</form>				
+			</field>		
+		</record>
+		
+		<record id="mail_delete_action" model="ir.actions.act_window">
+			<field name="name">Delete logs</field>
+			<field name="res_model">mail.logs.delete</field>
+			<field name="view_mode">form</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="mail_delete_form"/>		
+		</record>
+		
+		<act_window          
+            id="act_mail_delete" name="Mail Logs Action"
+            res_model="mail.logs.delete"
+            src_model="mail.logs"
+            view_id="mail_delete_form"
+			target="new"
+			multi="True"
+			/>
+	
+	</data>
+
+</openerp>

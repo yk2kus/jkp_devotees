@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		<report auto="False"
+				 id="msg_log_report_id" 
+				 model="sms.log.report" 
+				 name="sms.report"
+				 rml="jkp_devotees/wizard/sms_report.rml" 
+				 string="SMS Report" 
+				 />
+			
+		
+		<record id="sms_report_form" model="ir.ui.view">
+			<field name="name">SMS Report</field>
+			<field name="model">sms.log.report</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Message">
+					<field name="from_date"/>
+					<newline/>
+					<field name="to_date"/>
+					<newline/>
+					<field name="message_ids" invisible="1"  colspan="4"/>
+					<label string="" colspan="2"/>
+					<button name="get_message_list" string="Get Logs" type="object"/>
+				</form>
+			</field>
+		</record>
+		
+		<record id="sms_report_action" model="ir.actions.act_window">
+			<field name="name">SMS Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sms.log.report</field>
+            <field name="view_id" ref="sms_report_form"/>
+            <field name="target">new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>		
+		</record>
+	
+	<!--  	<menuitem id="message_menu_wzrd" name="Message Report" action="sms_report_action" parent="reporting_menu" />  -->
+	</data>
+</openerp>

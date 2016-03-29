@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="import_data_jkp" model="ir.ui.view">
+			<field name="name">import.data</field>
+			<field name="model">import.data</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Import Data" version="7.0">
+					<separator string="Note: Upload file in (.xls) format." colspan="4"/>
+					<field name="help"/>
+					<separator string="Upload File (.xls)" colspan="4"/>
+					<field name="file" colspan="4"/>
+					
+					<newline/>
+					<separator string="File Format "/>
+					<label string=' ' colspan="4"/>
+					
+					<label string="Reg No, First Name, Last Name, Father's Name, Date of Birth, Gender,Profession, Qualification (Separated by comma), Mother Tongue,
+	                Work Details, Languages Known (Separated by comma), Permanent Address, Country,State, Distt, Tehsil,Post Office, Pin,Landline Country Code,
+	                STD Code, Landline No, Mob Country Code, Mob No, Alt Mob Country Code, Alt Mob No, Email, Alt Email, EME Name, Relation,
+	                EME Add, Country, State, Distt, Tehsil, Post Office, Pin, EME Landline Country Code, STD Code, Landline No, Mob Country Code,
+	                Mob No, Alt Mob Country Code, Alt Mob No, Email, Alt Email, Associated Since, Associated Through, Specify Name,
+	                Corresspondence Mode(SMS,Email,Letter), Family Approval, Remarks, Category(Separated by comma), Accomodation Provided ('Yes','No'),
+	                Accom Mangarh, Accom Barsana, Accom Vrindavan, Accom Other,Marital Status" colspan="4"/>
+					<footer>  		
+	            		<button name="file_upload"  string="Done" type="object" class="oe_highlight"/>
+	            		  or
+	            		<button special="cancel" string="Cancel" class="oe_link" icon="gtk_cancel"/>
+            		</footer>
+					
+				</form>
+			</field>
+		</record>
+		
+		<record id="import_data_action" model="ir.actions.act_window">
+			<field name="name">Import Data</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">import.data</field>
+			<field name="view_id" ref="import_data_jkp"/>
+			<field name="target">new</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	
+	<menuitem id="import_data_menu" name="Import" parent="import_export_id" action="import_data_action" sequence="1"/>
+	
+	</data>
+	
+	
+</openerp>
